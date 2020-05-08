@@ -1,43 +1,43 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import Person from './Person/Person';
 
 
-class App extends Component {
-state = {
-  persons:[
-    {name:"Gaoyu", age:11},
-    {name:"Mike", age:12},
-    {name:"Marry", age:13}
+const App = props => {
 
-  ],
-
-  otherState:"This is other state"
-
-}
-
-switchHandler = () => {
-  // console.log("yes");
-  // this.state.persons[0].name = "Yu Gao";//Do not mutate state directly. Use setState()
-  this.setState(
-    {
+  const [personsState, setPersonsState] = useState({
       persons:[
-        {name:"Yu Gao", age:11},
+        {name:"Gaoyu", age:65},
         {name:"Mike", age:12},
         {name:"Marry", age:13}
-      ]
-    }
-  )
-}
+      ]  
+    });
 
-  render() {
+    const [otherState, setOtherState] = useState("other values");
+
+    // console.log(personsState,otherState );
+
+    const switchNameHandler = () =>{
+      setPersonsState({
+        persons:[
+          {name:"Yu Gao", age:11},
+          {name:"Mike", age:12},
+          {name:"Marry", age:13}
+        ],
+        // otherState: personsState.otherState
+        //we can use useState many times
+      });
+    }
+    
+
+
     return (
       <div className="App">
         <h1>Hi, I am a React App</h1>
-        <button onClick={this.switchHandler}>switch</button>
-        <Person name = {this.state.persons[0].name} age={this.state.persons[0].age}>My hobbies:racing</Person>
-        <Person name = {this.state.persons[1].name} age={this.state.persons[1].age}></Person>
-        <Person name = {this.state.persons[2].name} age={this.state.persons[2].age}></Person>
+        <button onClick={switchNameHandler}>switch</button>
+        <Person name = {personsState.persons[0].name} age={personsState.persons[0].age}>My hobbies:racing</Person>
+        <Person name = {personsState.persons[1].name} age={personsState.persons[1].age}></Person>
+        <Person name = {personsState.persons[2].name} age={personsState.persons[2].age}></Person>
   
 
         {/* <Person name = "Gao Yu" age = "18">My hobbies:racing</Person>
@@ -52,7 +52,8 @@ switchHandler = () => {
 
       </div>
     );
-  }
 }
 
 export default App;
+
+
